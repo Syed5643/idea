@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  width: 800px;
+  max-width: 95vw;
+  margin: auto;
+  overflow: hidden;
+}
+
+.base-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.overlay img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  max-width: 95vw;
+  height: auto;
+  display: block;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background: white;
+  cursor: ew-resize;
+  z-index: 10;
+}
+</style>
+</head>
+<body>
+
+<h2>Manual vs AI Smart System</h2>
+
+<div class="container" id="compareBox">
+  <img src="before.jpg" class="base-img" alt="Before image">
+
+  <div class="overlay" id="overlay">
+    <img src="after.jpg" alt="After image">
+  </div>
+
+  <div class="slider" id="slider"></div>
+</div>
+
+<script>
+const slider = document.getElementById("slider");
+const overlay = document.getElementById("overlay");
+const box = document.getElementById("compareBox");
+
+let dragging = false;
+
+slider.addEventListener("mousedown", () => dragging = true);
+document.addEventListener("mouseup", () => dragging = false);
+
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
+
+  const rect = box.getBoundingClientRect();
+  let x = e.clientX - rect.left;
+
+  if (x < 0) x = 0;
+  if (x > rect.width) x = rect.width;
+
+  overlay.style.width = x + "px";
+  slider.style.left = x + "px";
+});
+</script>
+
+</body>
+</html>
